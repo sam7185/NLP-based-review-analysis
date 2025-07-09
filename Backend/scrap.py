@@ -92,15 +92,18 @@ def scrape_all_reviews(hotel_url, delay_seconds=2, max_pages=100):
 
     return all_reviews
 
-def save_to_cache(hotel_url, data):
+def save_to_cache(hotel_url, metadata, reviews):
     os.makedirs('cache', exist_ok=True)
-    pagename = extract_pagename(hotel_url)
-    if not pagename:
-        pagename = "unknown_hotel"
-    filename = os.path.join('cache', f"{pagename}.json")
+    hotel_name_safe = metadata['title'].replace(' ', '_').replace('/', '_')
+    filename = os.path.join('cache', f"{hotel_name_safe}.json")
+    data = {
+        'metadata': metadata,
+        'reviews': reviews
+    }
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     print(f"Saved data to {filename}")
+
 
 if __name__ == '__main__':
     HOTEL_URL = 'https://www.booking.com/hotel/in/trident-nariman-point.html'
@@ -121,4 +124,4 @@ if __name__ == '__main__':
 
     hotel_name_safe = metadata['title'].replace(' ', '_').replace('/', '_')
     print(hotel_name_safe)
-    save_to_cache(HOTEL_URL, data)
+    save_to_cache(HOTEL_URL,metadata, data)
