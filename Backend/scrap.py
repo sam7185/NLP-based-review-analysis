@@ -105,17 +105,18 @@ def save_to_cache(hotel_url, metadata, reviews):
     print(f"Saved data to {filename}")
 
 
-if __name__ == '__main__':
-    HOTEL_URL = 'https://www.booking.com/hotel/in/trident-nariman-point.html'
-    
+def scrape_hotel_reviews(HOTEL_URL,max_pages=1):
+    if not HOTEL_URL:
+        print("No hotel URL provided. Please set the HOTEL_URL environment variable.")
+        exit(1)
     try:
         metadata = get_hotel_metadata(HOTEL_URL)
         print(f"Hotel Metadata:\n{json.dumps(metadata, indent=2)}")
     except Exception as e:
         print(f"Error scraping hotel metadata: {e}")
         exit(1)
-    
-    reviews = scrape_all_reviews(HOTEL_URL, delay_seconds=2, max_pages=5)
+
+    reviews = scrape_all_reviews(HOTEL_URL, delay_seconds=2, max_pages=max_pages)
 
     data = {
         'metadata': metadata,

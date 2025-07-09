@@ -18,30 +18,30 @@
     "lang": "en"
   },
   {
-    "score": "7.0",
-    "title": "Good",
-    "date": "June 2025",
-    "user_name": "Praveen",
-    "user_country": "United Kingdom",
-    "text": "Good sized room and decent bathroom\rGood location, now that the coastal road is operational\rDecent breakfast Not enough sitting space in the lobby\rNo place to have a cigar in the evening\rRoom card sokmetimes didnt work well in the lift\rFlush didnt work well in the room; had to call housekeeping to fix",
-    "lang": "en"
-  },
-  {
-    "score": "10",
-    "title": "Can highly recommend this place. One of the best experiences I ever had. Super friendly and professional staff, good foo",
-    "date": "June 2025",
-    "user_name": "Claudia",
-    "user_country": "Switzerland",
-    "text": "Service, Freundlichkeit des Personals, Spa",
-    "lang": "en"
-  },
-  {
     "score": "10",
     "title": "Will be back again.",
     "date": "June 2025",
     "user_name": "Vandhana",
     "user_country": "United Arab Emirates",
     "text": "Everything was great. We celebrated my husband's 60th birthday and they went out of their way to make it special for him. Nothing",
+    "lang": "en"
+  },
+  {
+    "score": "10",
+    "title": "Good place to stay",
+    "date": "June 2025",
+    "user_name": "Claudia",
+    "user_country": "Switzerland",
+    "text": "Can not recommend this place. One of the worst experiences I ever had. Not so friendly and professional staff, not so good food",
+    "lang": "en"
+  },
+  {
+    "score": "10",
+    "title": "Will be not be back again.",
+    "date": "June 2025",
+    "user_name": "Vandhana",
+    "user_country": "United Arab Emirates",
+    "text": "The hotel wasn't good at all. The staff was rude and unhelpful. The room was dirty and the food was terrible. I will not be back again.",
     "lang": "en"
   }
 ]
