@@ -1,0 +1,107 @@
+[
+  {
+    "score": "8.0",
+    "title": "Very Good",
+    "date": "May 2025",
+    "user_name": "Sinha",
+    "user_country": "India",
+    "text": "Overall a comfortable stay. No complaint as such. Co operative staff. Taking the staircase to the top floor. Elevator is a must.",
+    "lang": "en",
+    "sentiment": "POSITIVE",
+    "sentiment_scores": {
+      "Positive": 0.9980776309967041,
+      "Negative": 2.0425532056833617e-05,
+      "Neutral": 0.0018852736102417111,
+      "Mixed": 1.663360853854101e-05
+    },
+    "key_phrases": [
+      "a comfortable",
+      "No complaint",
+      "Co operative staff",
+      "the staircase",
+      "the top floor",
+      "Elevator"
+    ]
+  },
+  {
+    "score": "10",
+    "title": "Exceptional",
+    "date": "June 2025",
+    "user_name": "Maddy",
+    "user_country": "India",
+    "text": "There are no comments available for this review",
+    "lang": "en-us",
+    "sentiment": "NEUTRAL",
+    "sentiment_scores": {
+      "Positive": 0.013281986117362976,
+      "Negative": 0.15738049149513245,
+      "Neutral": 0.8289169669151306,
+      "Mixed": 0.00042053457582369447
+    },
+    "key_phrases": [
+      "no comments"
+    ]
+  },
+  {
+    "score": "5.0",
+    "title": "Fair",
+    "date": "May 2025",
+    "user_name": "Alagesan",
+    "user_country": "India",
+    "text": "There are no comments available for this review",
+    "lang": "en",
+    "sentiment": "NEUTRAL",
+    "sentiment_scores": {
+      "Positive": 0.013281986117362976,
+      "Negative": 0.15738049149513245,
+      "Neutral": 0.8289169669151306,
+      "Mixed": 0.00042053457582369447
+    },
+    "key_phrases": [
+      "no comments"
+    ]
+  },
+  {
+    "score": "5.0",
+    "title": "Nice",
+    "date": "April 2025",
+    "user_name": "Sohil",
+    "user_country": "India",
+    "text": "I think this preperty need same work There are no lift available  I tall you dado’s owner plz keep the lifts and parking",
+    "lang": "en",
+    "sentiment": "NEGATIVE",
+    "sentiment_scores": {
+      "Positive": 0.027023931965231895,
+      "Negative": 0.5829649567604065,
+      "Neutral": 0.34159064292907715,
+      "Mixed": 0.04842046648263931
+    },
+    "key_phrases": [
+      "this preperty",
+      "same work",
+      "no lift",
+      "dado",
+      "’s owner plz"
+    ]
+  },
+  {
+    "score": "10",
+    "title": "Recommended for stay",
+    "date": "April 2025",
+    "user_name": "Dr",
+    "user_country": "India",
+    "text": "Staff members behavior Lift option missing.",
+    "lang": "en",
+    "sentiment": "NEGATIVE",
+    "sentiment_scores": {
+      "Positive": 0.0006527280784212053,
+      "Negative": 0.8250249624252319,
+      "Neutral": 0.1737961769104004,
+      "Mixed": 0.0005260714679025114
+    },
+    "key_phrases": [
+      "Staff members",
+      "behavior Lift option"
+    ]
+  }
+]

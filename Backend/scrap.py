@@ -94,21 +94,31 @@ def scrape_all_reviews(hotel_url, delay_seconds=2, max_pages=100):
 
 def save_to_cache(hotel_url, metadata, reviews):
     os.makedirs('cache', exist_ok=True)
-    hotel_name_safe = metadata['title'].replace(' ', '_').replace('/', '_')
+
+    # Fix for empty title
+    hotel_title = metadata.get('title', '').strip()
+    if not hotel_title:
+        # fallback to pagename from URL
+        hotel_title = extract_pagename(hotel_url).replace('-', ' ').title()
+
+    hotel_name_safe = hotel_title.replace(' ', '_').replace('/', '_')
     filename = os.path.join('cache', f"{hotel_name_safe}.json")
+
     data = {
         'metadata': metadata,
         'reviews': reviews
     }
+
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+
     print(f"Saved data to {filename}")
 
-
-def scrape_hotel_reviews(HOTEL_URL,max_pages=1):
+def scrape_hotel_reviews(HOTEL_URL, max_pages=1):
     if not HOTEL_URL:
-        print("No hotel URL provided. Please set the HOTEL_URL environment variable.")
+        print("No hotel URL provided.")
         exit(1)
+
     try:
         metadata = get_hotel_metadata(HOTEL_URL)
         print(f"Hotel Metadata:\n{json.dumps(metadata, indent=2)}")
@@ -117,12 +127,4 @@ def scrape_hotel_reviews(HOTEL_URL,max_pages=1):
         exit(1)
 
     reviews = scrape_all_reviews(HOTEL_URL, delay_seconds=2, max_pages=max_pages)
-
-    data = {
-        'metadata': metadata,
-        'reviews': reviews
-    }
-
-    hotel_name_safe = metadata['title'].replace(' ', '_').replace('/', '_')
-    print(hotel_name_safe)
-    save_to_cache(HOTEL_URL,metadata, data)
+    save_to_cache(HOTEL_URL, metadata, reviews)

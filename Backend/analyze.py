@@ -12,8 +12,10 @@ comprehend = boto3.client('comprehend')
 
 #Loads the file containing the reviews for a specific hotel
 def load_reviews(hotel_name):
-    with open(f"../cache/{hotel_name}.json", encoding='utf-8') as f:
-        return json.load(f)
+    with open(f"./cache/{hotel_name}.json", encoding='utf-8') as f:
+        data = json.load(f)
+    return data['reviews']
+
 
 #Used to filter out reviews that are not in English and contain no comments and are not too short
 def filter_reviews(reviews):

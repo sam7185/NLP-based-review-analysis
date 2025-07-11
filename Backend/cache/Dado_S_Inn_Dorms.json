@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "url": "https://www.booking.com/hotel/in/dado-s-inn-dorms.html",
+    "title": "",
+    "address": "",
+    "description": ""
+  },
+  "reviews": [
+    {
+      "score": "8.0",
+      "title": "Very Good",
+      "date": "May 2025",
+      "user_name": "Sinha",
+      "user_country": "India",
+      "text": "Overall a comfortable stay. No complaint as such. Co operative staff. Taking the staircase to the top floor. Elevator is a must.",
+      "lang": "en"
+    },
+    {
+      "score": "10",
+      "title": "Exceptional",
+      "date": "June 2025",
+      "user_name": "Maddy",
+      "user_country": "India",
+      "text": "There are no comments available for this review",
+      "lang": "en-us"
+    },
+    {
+      "score": "5.0",
+      "title": "Fair",
+      "date": "May 2025",
+      "user_name": "Alagesan",
+      "user_country": "India",
+      "text": "There are no comments available for this review",
+      "lang": "en"
+    },
+    {
+      "score": "5.0",
+      "title": "Nice",
+      "date": "April 2025",
+      "user_name": "Sohil",
+      "user_country": "India",
+      "text": "I think this preperty need same work There are no lift available  I tall you dado’s owner plz keep the lifts and parking",
+      "lang": "en"
+    },
+    {
+      "score": "10",
+      "title": "Recommended for stay",
+      "date": "April 2025",
+      "user_name": "Dr",
+      "user_country": "India",
+      "text": "Staff members behavior Lift option missing.",
+      "lang": "en"
+    },
+    {
+      "score": "1.0",
+      "title": "Trotz Bestätigung war bei Anreise dann kein Bett frei.",
+      "date": "February 2025",
+      "user_name": "Kamil",
+      "user_country": "Germany",
+      "text": "Trotz Bestätigung war bei Anreise dann kein Bett frei.",
+      "lang": "de"
+    }
+  ]
+}
