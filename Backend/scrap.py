@@ -94,25 +94,16 @@ def scrape_all_reviews(hotel_url, delay_seconds=2, max_pages=100):
 
 def save_to_cache(hotel_url, metadata, reviews):
     os.makedirs('cache', exist_ok=True)
-
-    # Fix for empty title
-    hotel_title = metadata.get('title', '').strip()
-    if not hotel_title:
-        # fallback to pagename from URL
-        hotel_title = extract_pagename(hotel_url).replace('-', ' ').title()
-
-    hotel_name_safe = hotel_title.replace(' ', '_').replace('/', '_')
+    hotel_name_safe = extract_pagename(hotel_url)  # <== FIXED!
     filename = os.path.join('cache', f"{hotel_name_safe}.json")
-
     data = {
         'metadata': metadata,
         'reviews': reviews
     }
-
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-
     print(f"Saved data to {filename}")
+
 
 def scrape_hotel_reviews(HOTEL_URL, max_pages=1):
     if not HOTEL_URL:

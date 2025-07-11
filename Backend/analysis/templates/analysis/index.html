@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hotel Review Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
+        <h1 class="text-2xl font-bold mb-4 text-center">Hotel Review Analysis</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label class="block mb-2 text-sm font-medium text-gray-700" for="hotel_url">
+                Paste the Booking.com hotel URL
+            </label>
+            <input 
+                type="url" 
+                name="hotel_url" 
+                id="hotel_url" 
+                required 
+                class="w-full p-2 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="https://www.booking.com/hotel/..."
+            >
+            <button 
+                type="submit" 
+                class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
+                Analyze Reviews
+            </button>
+        </form>
+    </div>
+</body>
+</html>

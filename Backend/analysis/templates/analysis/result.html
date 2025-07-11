@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results - {{ hotel_name }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+    <h1 class="text-3xl font-bold mb-6">Results for {{ hotel_name }}</h1>
+    <p class="mb-6 text-gray-700">Total Processed Reviews: {{ review_count }}</p>
+
+    <div class="grid grid-cols-2 gap-6">
+        <div>
+            <h2 class="text-xl mb-2 font-semibold">Sentiment Pie Chart</h2>
+            <img src="{{ charts.sentiment }}" alt="Sentiment Chart">
+        </div>
+        <div>
+            <h2 class="text-xl mb-2 font-semibold">Rating Trend</h2>
+            <img src="{{ charts.trend }}" alt="Rating Trend Chart">
+        </div>
+        <div>
+            <h2 class="text-xl mb-2 font-semibold">User Country Distribution</h2>
+            <img src="{{ charts.country }}" alt="Country Chart">
+        </div>
+        <div>
+            <h2 class="text-xl mb-2 font-semibold">Keyword WordCloud</h2>
+            <img src="{{ charts.tags }}" alt="Keyword Cloud">
+        </div>
+    </div>
+</body>
+</html>
