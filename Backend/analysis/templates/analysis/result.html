@@ -1,30 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Results - {{ hotel_name }}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 min-h-screen p-8">
+{% extends "analysis/base.html" %}
+{% block title %}Results - {{ hotel_name }}{% endblock %}
+
+{% block content %}
+<div class="p-8">
     <h1 class="text-3xl font-bold mb-6">Results for {{ hotel_name }}</h1>
     <p class="mb-6 text-gray-700">Total Processed Reviews: {{ review_count }}</p>
 
     <div class="grid grid-cols-2 gap-6">
-        <div>
+        <div id="sentiment_container">
             <h2 class="text-xl mb-2 font-semibold">Sentiment Pie Chart</h2>
-            <img src="{{ charts.sentiment }}" alt="Sentiment Chart">
+            <div id="sentiment_chart"></div>
         </div>
-        <div>
+        <div id="trend_container">
             <h2 class="text-xl mb-2 font-semibold">Rating Trend</h2>
-            <img src="{{ charts.trend }}" alt="Rating Trend Chart">
+            <div id="trend_chart"></div>
         </div>
-        <div>
+        <div id="country_container">
             <h2 class="text-xl mb-2 font-semibold">User Country Distribution</h2>
-            <img src="{{ charts.country }}" alt="Country Chart">
+            <div id="country_chart"></div>
         </div>
         <div>
             <h2 class="text-xl mb-2 font-semibold">Keyword WordCloud</h2>
-            <img src="{{ charts.tags }}" alt="Keyword Cloud">
+            <img src="{{ tags_wordcloud }}" alt="Keyword Cloud">
         </div>
     </div>
-</body>
-</html>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+    const charts = {{ charts|safe }};
+    if (charts.sentiment) {
+        Plotly.newPlot('sentiment_chart', charts.sentiment.data, charts.sentiment.layout);
+    } else {
+        document.getElementById('sentiment_container').style.display = 'none';
+    }
+    if (charts.trend) {
+        Plotly.newPlot('trend_chart', charts.trend.data, charts.trend.layout);
+    } else {
+        document.getElementById('trend_container').style.display = 'none';
+    }
+    if (charts.country) {
+        Plotly.newPlot('country_chart', charts.country.data, charts.country.layout);
+    } else {
+        document.getElementById('country_container').style.display = 'none';
+    }
+</script>
+{% endblock %}
