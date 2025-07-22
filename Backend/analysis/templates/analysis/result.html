@@ -2,26 +2,35 @@
 {% block title %}Results - {{ hotel_name }}{% endblock %}
 
 {% block content %}
-<div class="p-8">
-    <h1 class="text-3xl font-bold mb-6">Results for {{ hotel_name }}</h1>
-    <p class="mb-6 text-gray-700">Total Processed Reviews: {{ review_count }}</p>
+<div>
+    <h2 class="text-3xl font-bold text-blue-700 mb-2">{{ hotel_name }}</h2>
+    <p class="text-gray-600 mb-6">Total Processed Reviews: 
+        <span class="font-semibold text-gray-800">{{ review_count }}</span>
+    </p>
 
-    <div class="grid grid-cols-2 gap-6">
-        <div id="sentiment_container">
-            <h2 class="text-xl mb-2 font-semibold">Sentiment Pie Chart</h2>
-            <div id="sentiment_chart"></div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Sentiment Pie -->
+        <div id="sentiment_container" class="bg-white p-4 rounded shadow">
+            <h3 class="text-xl font-semibold mb-2">Sentiment Pie Chart</h3>
+            <div id="sentiment_chart" class="w-full"></div>
         </div>
-        <div id="trend_container">
-            <h2 class="text-xl mb-2 font-semibold">Rating Trend</h2>
-            <div id="trend_chart"></div>
+
+        <!-- Rating Trend -->
+        <div id="trend_container" class="bg-white p-4 rounded shadow">
+            <h3 class="text-xl font-semibold mb-2">Rating Trend Over Time</h3>
+            <div id="trend_chart" class="w-full"></div>
         </div>
-        <div id="country_container">
-            <h2 class="text-xl mb-2 font-semibold">User Country Distribution</h2>
-            <div id="country_chart"></div>
+
+        <!-- Country Distribution -->
+        <div id="country_container" class="bg-white p-4 rounded shadow">
+            <h3 class="text-xl font-semibold mb-2">User Country Distribution</h3>
+            <div id="country_chart" class="w-full"></div>
         </div>
-        <div>
-            <h2 class="text-xl mb-2 font-semibold">Keyword WordCloud</h2>
-            <img src="{{ tags_wordcloud }}" alt="Keyword Cloud">
+
+        <!-- WordCloud -->
+        <div class="bg-white p-4 rounded shadow">
+            <h3 class="text-xl font-semibold mb-2">Keyword Word Cloud</h3>
+            <img src="{{ tags_wordcloud }}" alt="Keyword Cloud" class="w-full object-contain rounded">
         </div>
     </div>
 </div>
@@ -34,11 +43,13 @@
     } else {
         document.getElementById('sentiment_container').style.display = 'none';
     }
+
     if (charts.trend) {
         Plotly.newPlot('trend_chart', charts.trend.data, charts.trend.layout);
     } else {
         document.getElementById('trend_container').style.display = 'none';
     }
+
     if (charts.country) {
         Plotly.newPlot('country_chart', charts.country.data, charts.country.layout);
     } else {
