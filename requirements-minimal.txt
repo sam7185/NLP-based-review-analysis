@@ -1,0 +1,13 @@
+Django==5.2.4
+beautifulsoup4==4.13.4
+requests==2.31.0
+# Additional runtime packages used by the project (lightweight)
+parsel==1.8.1
+boto3
+wordcloud==1.8.1
+# NOTE: matplotlib, numpy and pandas often require native builds on Windows
+# and can trigger Meson/Visual Studio toolchain errors. For a smooth
+# developer experience install the scientific stack via conda (recommended):
+#   conda install -c conda-forge numpy matplotlib pandas
+# If you need to install via pip, ensure a compatible prebuilt wheel is
+# available or install the Microsoft C++ Build Tools / Visual Studio.

@@ -2,18 +2,29 @@ import os
 import json
 import boto3
 from collections import Counter
-import pandas as pd
-from wordcloud import WordCloud
 from datetime import datetime
-import plotly.graph_objects as go
-import plotly.express as px
-import plotly
-import plotly.utils
 
 
+# Helper: create AWS Comprehend client lazily (may fail if credentials not configured)
+def get_comprehend_client():
+    try:
+        return boto3.client('comprehend')
+    except Exception:
+        return None
 
-# Initialize AWS Comprehend client
-comprehend = boto3.client('comprehend')
+
+# Very small fallback sentiment analyzer (keyword-based) used when AWS is unavailable
+def simple_sentiment(text: str):
+    text = (text or '').lower()
+    pos = ['good', 'great', 'excellent', 'fantastic', 'amazing', 'lov', 'wonderful']
+    neg = ['bad', 'terrible', 'poor', 'awful', 'worst', 'hate']
+    p = sum(1 for w in pos if w in text)
+    n = sum(1 for w in neg if w in text)
+    if p > n:
+        return {'Sentiment': 'POSITIVE', 'SentimentScore': {'Positive': 1.0, 'Negative': 0.0, 'Neutral': 0.0, 'Mixed': 0.0}}
+    if n > p:
+        return {'Sentiment': 'NEGATIVE', 'SentimentScore': {'Positive': 0.0, 'Negative': 1.0, 'Neutral': 0.0, 'Mixed': 0.0}}
+    return {'Sentiment': 'NEUTRAL', 'SentimentScore': {'Positive': 0.0, 'Negative': 0.0, 'Neutral': 1.0, 'Mixed': 0.0}}
 
 
 # Clean old chart files for hotel
@@ -52,15 +63,30 @@ def filter_reviews(reviews):
 # Enrich with AWS
 def enrich_reviews_with_aws(reviews):
     enriched = []
+    client = get_comprehend_client()
     for r in reviews:
-        text = r['text']
-        sent = comprehend.detect_sentiment(Text=text, LanguageCode='en')
-        r['sentiment'] = sent['Sentiment']
-        r['sentiment_scores'] = sent['SentimentScore']
-        
-        phrases = comprehend.detect_key_phrases(Text=text, LanguageCode='en')
-        r['key_phrases'] = [p['Text'] for p in phrases['KeyPhrases']]
-        
+        text = r.get('text', '')
+        if client:
+            try:
+                sent = client.detect_sentiment(Text=text, LanguageCode='en')
+                r['sentiment'] = sent.get('Sentiment')
+                r['sentiment_scores'] = sent.get('SentimentScore')
+
+                phrases = client.detect_key_phrases(Text=text, LanguageCode='en')
+                r['key_phrases'] = [p['Text'] for p in phrases.get('KeyPhrases', [])]
+            except Exception as e:
+                # If AWS fails at runtime, fallback to simple analyzer
+                fallback = simple_sentiment(text)
+                r['sentiment'] = fallback['Sentiment']
+                r['sentiment_scores'] = fallback['SentimentScore']
+                r['key_phrases'] = []
+        else:
+            # No AWS client available — use fallback analyzer
+            fallback = simple_sentiment(text)
+            r['sentiment'] = fallback['Sentiment']
+            r['sentiment_scores'] = fallback['SentimentScore']
+            r['key_phrases'] = []
+
         enriched.append(r)
     return enriched
 
@@ -79,6 +105,9 @@ def save_plotly_figure_json(fig, path):
         print(f"[WARNING] Not saving: figure is None for {path}")
         return
     try:
+        import plotly
+        import plotly.utils
+
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(fig.to_plotly_json(), f, cls=plotly.utils.PlotlyJSONEncoder)
@@ -94,12 +123,15 @@ def plot_sentiment_pie(hotel_name, reviews):
     if not sentiments:
         print(f"[WARNING] No sentiment data for {hotel_name}")
         return None
+    try:
+        import plotly.graph_objects as go
 
-    labels, sizes = zip(*sentiments.items())
-    fig = go.Figure(data=[go.Pie(labels=labels, values=sizes, hole=0.3)])
-    fig.update_layout(title=f"Sentiment Distribution - {hotel_name}")
-    
-    save_plotly_figure_json(fig, f'cache/charts_json/{hotel_name}_sentiment.json')
+        labels, sizes = zip(*sentiments.items())
+        fig = go.Figure(data=[go.Pie(labels=labels, values=sizes, hole=0.3)])
+        fig.update_layout(title=f"Sentiment Distribution - {hotel_name}")
+        save_plotly_figure_json(fig, f'cache/charts_json/{hotel_name}_sentiment.json')
+    except Exception as e:
+        print(f"[ERROR] Could not create sentiment pie (missing plotly?): {e}")
 
 
 # Parse review date
@@ -127,24 +159,34 @@ def plot_rating_trend(hotel_name, reviews):
         print(f"[WARNING] No rating data for {hotel_name}")
         return None
 
-    df = pd.DataFrame(data)
-    df_grouped = df.groupby(pd.Grouper(key='date', freq='MS')).mean().reset_index()
+    try:
+        import pandas as pd
+
+        df = pd.DataFrame(data)
+        df_grouped = df.groupby(pd.Grouper(key='date', freq='MS')).mean().reset_index()
+    except Exception as e:
+        print(f"[ERROR] pandas missing or failed to create DataFrame: {e}")
+        return None
 
     if df_grouped.empty or df_grouped['score'].isnull().all():
         print(f"[WARNING] No valid grouped rating data for {hotel_name}")
         return None
 
-    fig = px.line(
-        df_grouped,
-        x='date',
-        y='score',
-        markers=True,
-        title=f"Average Rating Trend Over Time - {hotel_name}",
-        labels={'date': 'Month', 'score': 'Average Rating'}
-    )
-    fig.update_layout(xaxis=dict(tickformat='%b %Y'))
+    try:
+        import plotly.express as px
 
-    save_plotly_figure_json(fig, f'cache/charts_json/{hotel_name}_trend.json')
+        fig = px.line(
+            df_grouped,
+            x='date',
+            y='score',
+            markers=True,
+            title=f"Average Rating Trend Over Time - {hotel_name}",
+            labels={'date': 'Month', 'score': 'Average Rating'}
+        )
+        fig.update_layout(xaxis=dict(tickformat='%b %Y'))
+        save_plotly_figure_json(fig, f'cache/charts_json/{hotel_name}_trend.json')
+    except Exception as e:
+        print(f"[ERROR] Could not create trend chart (missing plotly?): {e}")
 
 
 # Country Distribution Chart
@@ -162,15 +204,19 @@ def plot_country_distribution(hotel_name, reviews):
         return None
 
     labels, counts = zip(*top_countries)
-    fig = px.bar(
-        x=labels,
-        y=counts,
-        title=f"User Country Distribution - {hotel_name}",
-        labels={'x': 'Country', 'y': 'Number of Reviews'}
-    )
-    fig.update_layout(xaxis_tickangle=-45)
+    try:
+        import plotly.express as px
 
-    save_plotly_figure_json(fig, f'cache/charts_json/{hotel_name}_country.json')
+        fig = px.bar(
+            x=labels,
+            y=counts,
+            title=f"User Country Distribution - {hotel_name}",
+            labels={'x': 'Country', 'y': 'Number of Reviews'}
+        )
+        fig.update_layout(xaxis_tickangle=-45)
+        save_plotly_figure_json(fig, f'cache/charts_json/{hotel_name}_country.json')
+    except Exception as e:
+        print(f"[ERROR] Could not create country chart (missing plotly?): {e}")
 
 
 # WordCloud for Key Phrases
@@ -184,10 +230,15 @@ def plot_keyphrase_wordcloud(hotel_name, reviews):
         print(f"[WARNING] No key phrases for {hotel_name}")
         return
 
-    os.makedirs('charts', exist_ok=True)
-    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
-    wordcloud.to_file(f'charts/{hotel_name}_tags_wordcloud.png')
-    print(f"[INFO] Saved wordcloud image.")
+    try:
+        from wordcloud import WordCloud
+
+        os.makedirs('charts', exist_ok=True)
+        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+        wordcloud.to_file(f'charts/{hotel_name}_tags_wordcloud.png')
+        print(f"[INFO] Saved wordcloud image.")
+    except Exception as e:
+        print(f"[ERROR] Could not generate wordcloud (missing wordcloud lib?): {e}")
 
 
 # Main Pipeline

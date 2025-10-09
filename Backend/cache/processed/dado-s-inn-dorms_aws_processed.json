@@ -1,5 +1,107 @@
 [
   {
+    "score": "5.0",
+    "title": "ok for boys who just need a bare minimum place to stay. Do not expect much",
+    "date": "September 2025",
+    "user_name": "Shahbaz",
+    "user_country": "India",
+    "text": "Good budget place.  Host was very nice, always giving towels and whatever we needed, quickly. Lighting was bad, much of the dorm is dark. Bathrooms are dirty and still under construction but we managed.",
+    "lang": "en-us",
+    "sentiment": "NEGATIVE",
+    "sentiment_scores": {
+      "Positive": 0.0,
+      "Negative": 1.0,
+      "Neutral": 0.0,
+      "Mixed": 0.0
+    },
+    "key_phrases": []
+  },
+  {
+    "score": "5.0",
+    "title": "Thanks",
+    "date": "September 2025",
+    "user_name": "Patole",
+    "user_country": "India",
+    "text": "Improve In Cleanliness Wash Basin Chokup",
+    "lang": "en",
+    "sentiment": "NEUTRAL",
+    "sentiment_scores": {
+      "Positive": 0.0,
+      "Negative": 0.0,
+      "Neutral": 1.0,
+      "Mixed": 0.0
+    },
+    "key_phrases": []
+  },
+  {
+    "score": "5.0",
+    "title": "Fair",
+    "date": "August 2025",
+    "user_name": "Prince",
+    "user_country": "India",
+    "text": "There are no comments available for this review",
+    "lang": "en",
+    "sentiment": "NEUTRAL",
+    "sentiment_scores": {
+      "Positive": 0.0,
+      "Negative": 0.0,
+      "Neutral": 1.0,
+      "Mixed": 0.0
+    },
+    "key_phrases": []
+  },
+  {
+    "score": "1.0",
+    "title": "It’s just waste of money",
+    "date": "August 2025",
+    "user_name": "Santosh",
+    "user_country": "India",
+    "text": "Nothing waste place no lift No clean",
+    "lang": "en",
+    "sentiment": "NEUTRAL",
+    "sentiment_scores": {
+      "Positive": 0.0,
+      "Negative": 0.0,
+      "Neutral": 1.0,
+      "Mixed": 0.0
+    },
+    "key_phrases": []
+  },
+  {
+    "score": "5.0",
+    "title": "Fair",
+    "date": "August 2025",
+    "user_name": "Anonymous",
+    "user_country": "India",
+    "text": "No break fast",
+    "lang": "en-us",
+    "sentiment": "NEUTRAL",
+    "sentiment_scores": {
+      "Positive": 0.0,
+      "Negative": 0.0,
+      "Neutral": 1.0,
+      "Mixed": 0.0
+    },
+    "key_phrases": []
+  },
+  {
+    "score": "7.0",
+    "title": "Good",
+    "date": "June 2025",
+    "user_name": "M",
+    "user_country": "India",
+    "text": "There are no comments available for this review",
+    "lang": "en",
+    "sentiment": "NEUTRAL",
+    "sentiment_scores": {
+      "Positive": 0.0,
+      "Negative": 0.0,
+      "Neutral": 1.0,
+      "Mixed": 0.0
+    },
+    "key_phrases": []
+  },
+  {
     "score": "8.0",
     "title": "Very Good",
     "date": "May 2025",
@@ -7,21 +109,14 @@
     "user_country": "India",
     "text": "Overall a comfortable stay. No complaint as such. Co operative staff. Taking the staircase to the top floor. Elevator is a must.",
     "lang": "en",
-    "sentiment": "POSITIVE",
+    "sentiment": "NEUTRAL",
     "sentiment_scores": {
-      "Positive": 0.9980776309967041,
-      "Negative": 2.0425572074600495e-05,
-      "Neutral": 0.0018852745415642858,
-      "Mixed": 1.663357761572115e-05
+      "Positive": 0.0,
+      "Negative": 0.0,
+      "Neutral": 1.0,
+      "Mixed": 0.0
     },
-    "key_phrases": [
-      "a comfortable",
-      "No complaint",
-      "Co operative staff",
-      "the staircase",
-      "the top floor",
-      "Elevator"
-    ]
+    "key_phrases": []
   },
   {
     "score": "10",
@@ -33,14 +128,12 @@
     "lang": "en-us",
     "sentiment": "NEUTRAL",
     "sentiment_scores": {
-      "Positive": 0.013282033614814281,
-      "Negative": 0.1573805809020996,
-      "Neutral": 0.8289167881011963,
-      "Mixed": 0.00042053431388922036
+      "Positive": 0.0,
+      "Negative": 0.0,
+      "Neutral": 1.0,
+      "Mixed": 0.0
     },
-    "key_phrases": [
-      "no comments"
-    ]
+    "key_phrases": []
   },
   {
     "score": "5.0",
@@ -52,14 +145,12 @@
     "lang": "en",
     "sentiment": "NEUTRAL",
     "sentiment_scores": {
-      "Positive": 0.013282033614814281,
-      "Negative": 0.1573805809020996,
-      "Neutral": 0.8289167881011963,
-      "Mixed": 0.00042053431388922036
+      "Positive": 0.0,
+      "Negative": 0.0,
+      "Neutral": 1.0,
+      "Mixed": 0.0
     },
-    "key_phrases": [
-      "no comments"
-    ]
+    "key_phrases": []
   },
   {
     "score": "5.0",
@@ -69,39 +160,13 @@
     "user_country": "India",
     "text": "I think this preperty need same work There are no lift available  I tall you dado’s owner plz keep the lifts and parking",
     "lang": "en",
-    "sentiment": "NEGATIVE",
+    "sentiment": "NEUTRAL",
     "sentiment_scores": {
-      "Positive": 0.02702396735548973,
-      "Negative": 0.5829650163650513,
-      "Neutral": 0.3415905237197876,
-      "Mixed": 0.04842048138380051
+      "Positive": 0.0,
+      "Negative": 0.0,
+      "Neutral": 1.0,
+      "Mixed": 0.0
     },
-    "key_phrases": [
-      "this preperty",
-      "same work",
-      "no lift",
-      "dado",
-      "’s owner plz"
-    ]
-  },
-  {
-    "score": "10",
-    "title": "Recommended for stay",
-    "date": "April 2025",
-    "user_name": "Dr",
-    "user_country": "India",
-    "text": "Staff members behavior Lift option missing.",
-    "lang": "en",
-    "sentiment": "NEGATIVE",
-    "sentiment_scores": {
-      "Positive": 0.000652727612759918,
-      "Negative": 0.8250256180763245,
-      "Neutral": 0.17379558086395264,
-      "Mixed": 0.0005260679172351956
-    },
-    "key_phrases": [
-      "Staff members",
-      "behavior Lift option"
-    ]
+    "key_phrases": []
   }
 ]

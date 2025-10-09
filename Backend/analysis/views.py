@@ -2,9 +2,7 @@ import os
 import json
 from django.shortcuts import render, redirect
 from django.conf import settings
-from scrap import scrape_hotel_reviews
-from analyze import run_pipeline
-from scrap import extract_pagename
+from scrap import scrape_hotel_reviews, extract_pagename
 
 def index(request):
     if request.method == 'POST':
@@ -18,7 +16,8 @@ def index(request):
                 pagename = extract_pagename(hotel_url)
                 hotel_file = f"{pagename}.json"
 
-                # STEP 3: Run analysis
+                # STEP 3: Run analysis (import lazily to avoid heavy deps at startup)
+                from analyze import run_pipeline
                 run_pipeline(pagename)
 
                 # STEP 4: Redirect to result
@@ -41,8 +40,9 @@ def loading_view(request):
         # Already processed → skip scraping
         return redirect('result', hotel_name=pagename)
 
-    # Not processed → run pipeline (scraping + analyze)
+    # Not processed -> run pipeline (scraping + analyze)
     scrape_hotel_reviews(hotel_url, max_pages=1)
+    from analyze import run_pipeline
     charts = run_pipeline(pagename)
     os.makedirs(f'./cache/charts_json', exist_ok=True)
     with open(f'./cache/charts_json/{pagename}_charts.json', 'w', encoding='utf-8') as f:
@@ -65,6 +65,7 @@ def result(request, hotel_name):
         print(f"[WARNING] charts JSON not found for {hotel_name}, re-running pipeline...")
         from analyze import run_pipeline
         run_pipeline(hotel_name)
+
         # After rerun, try loading again:
         if os.path.exists(charts_combined_path):
             with open(charts_combined_path, encoding='utf-8') as f:
